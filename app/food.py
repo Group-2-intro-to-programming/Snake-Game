@@ -1,4 +1,5 @@
 import random
+import pygame
 # Screen dimensions
 window_x=600
 window_y=400

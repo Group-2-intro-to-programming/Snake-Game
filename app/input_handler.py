@@ -10,7 +10,7 @@ LEFT = (-1, 0)
 RIGHT = (1, 0)
 
 class InputHandler:
-    definit(self):
+    definite(self):
         self.direction = RIGHT  # default start direction
 
     def handle_input(self):
@@ -26,7 +26,8 @@ class InputHandler:
             self.direction = RIGHT
 
         return self.direction
-        from input_handler import InputHandler
+
+from input_handler import InputHandler
 
 pygame.init()
 clock = pygame.time.Clock()
