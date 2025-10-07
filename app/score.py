@@ -150,6 +150,3 @@ class ScoreManager:
         screen.blit(restart, (screen.get_width()//2 - restart.get_width()//2, screen.get_height()//2 + 120))
 
 
-        
-    
->>>>>>> 5d2d450 (changes)
