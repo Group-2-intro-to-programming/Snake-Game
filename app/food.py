@@ -1,20 +1,37 @@
+# food.py - June Maritim
+# Food Logic: Randomly spawn food, manage multiple apples
+
 import random
 import pygame
-# Screen dimensions
-window_x=600
-window_y=400
-snake_block = 10  # size of one block
-# Generate random position
-food_x = random.randrange(0, window_x - snake_block, snake_block)
-food_y = random.randrange(0, window_y - snake_block, snake_block)
 
-food_position = [food_x, food_y]
-pygame.draw.rect(game_window, pygame.Color(255, 0, 0), pygame.Rect(food_position[0], food_position[1], snake_block, snake_block))
-# If snake eats the food
-if snake_position[0] == food_position[0] and snake_position[1] == food_position[1]:
-    score += 10
-    snake_body.append([0, 0])  # grow snake
-    # Respawn new food
-    food_x = random.randrange(0, window_x - snake_block, snake_block)
-    food_y = random.randrange(0, window_y - snake_block, snake_block)
-    food_position = [food_x, food_y]
+class Food:
+    def __init__(self, window_width=800, window_height=600, block_size=20):
+        self.window_width = window_width
+        self.window_height = window_height
+        self.block_size = block_size
+        self.position = [0, 0]
+        self.spawn()
+    
+    def spawn(self, snake_body=None):
+        """Generate random position for food, avoiding snake body"""
+        while True:
+            x = random.randrange(0, self.window_width - self.block_size, self.block_size)
+            y = random.randrange(0, self.window_height - self.block_size, self.block_size)
+            self.position = [x, y]
+            
+            # Check if food spawned on snake body
+            if snake_body is None:
+                break
+            
+            collision = False
+            for segment in snake_body:
+                if segment[0] == x and segment[1] == y:
+                    collision = True
+                    break
+            
+            if not collision:
+                break
+    
+    def get_position(self):
+        """Return current food position"""
+        return self.position
