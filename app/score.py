@@ -29,7 +29,7 @@ class ScoreManager:
             screen.fill((0, 30, 0))
             prompt1 = font.render("Enter your name (max 10 chars):", True, (255, 255, 255))
             rect = prompt1.get_rect(center=(screen.get_width()//2, screen.get_height()//2 - 50))
-            prompt2 = font.render("Press SPACE to confirm", True, (200, 200, 200))
+            prompt2 = font.render("Press ENTER to confirm", True, (200, 200, 200))
             rect2 = prompt2.get_rect(center=(screen.get_width()//2, screen.get_height()//2 + 80))
             screen.blit(prompt1, rect)
             screen.blit(prompt2, rect2)
@@ -116,37 +116,52 @@ class ScoreManager:
         screen.blit(title_text, title_rect)
 
         start_font = pygame.font.Font(None, 48)
-        start_text = start_font.render("Press SPACE to Start", True, (255, 255, 255))
+        start_text = start_font.render("Press ENTER to Start", True, (255, 255, 255))
         start_rect = start_text.get_rect(center=(screen.get_width()//2, screen.get_height()//2))
         screen.blit(start_text, start_rect)
 
 
-     # Wait for SPACE
+     # Wait for ENTER key to start
+        pygame.display.flip()
         waiting = True
         while waiting:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    waiting = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key in (pygame.K_RETURN, pygame.K_KP_ENTER):
+                        waiting = False
 
     def game_over_screen(self, screen):
-        screen.fill((30, 0, 0))  # dark background
+        """Display game over screen with background image."""
+        try:
+            bg_image = pygame.image.load("assets/game_over.png").convert()
+            bg_image = pygame.transform.scale(bg_image, (screen.get_width(), screen.get_height()))
+        except:
+            bg_image = None  # fallback if image not found
 
-        font = pygame.font.Font("Assets/arcade.ttf", 72)
+        font = pygame.font.Font(None, 72)
+        score_font = pygame.font.Font(None, 36)
+
+        if bg_image:
+            self.fade_in(screen, bg_image)
+        else:
+            screen.fill((30, 0, 0))  # Dark red background
+
+        # Overlay text
         game_over_text = font.render("GAME OVER", True, (255, 0, 0))
         game_over_rect = game_over_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2 - 100))
         screen.blit(game_over_text, game_over_rect)
 
-        score_font = pygame.font.Font("Assets/arcade.ttf", 36)
         final_score = score_font.render(f"{self.player_name} Score: {self.score}", True, (255, 255, 255))
-        screen.blit(final_score, (screen.get_width()//2 - final_score.get_width()//2, screen.get_height()//2))
+        screen.blit(final_score, (screen.get_width() // 2 - final_score.get_width() // 2, screen.get_height() // 2))
 
         high_score = score_font.render(f"High Score: {self.high_score}", True, (255, 215, 0))
-        screen.blit(high_score, (screen.get_width()//2 - high_score.get_width()//2, screen.get_height()//2 + 50))
+        screen.blit(high_score, (screen.get_width() // 2 - high_score.get_width() // 2, screen.get_height() // 2 + 50))
 
         restart = score_font.render("Press Y to Restart / N to Quit", True, (200, 200, 200))
-        screen.blit(restart, (screen.get_width()//2 - restart.get_width()//2, screen.get_height()//2 + 120))
+        screen.blit(restart, (screen.get_width() // 2 - restart.get_width() // 2, screen.get_height() // 2 + 120))
 
+        pygame.display.flip()
 

@@ -108,7 +108,7 @@ def main():
         # Game over - show end screen
         if play_again:  # Only show if didn't quit during game
             score_manager.game_over_screen(screen)
-            pygame.display.flip
+            pygame.display.flip()
             play_again = input_handler.wait_for_restart()
     
     # Quit pygame
