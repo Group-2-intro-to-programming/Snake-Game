@@ -7,6 +7,12 @@ import pygame
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
+# UI margins (reserved for header and footer)
+HEADER_HEIGHT = 60
+FOOTER_HEIGHT = 60
+PLAY_AREA_TOP = HEADER_HEIGHT
+PLAY_AREA_BOTTOM = WINDOW_HEIGHT - FOOTER_HEIGHT
+
 # Block/Grid size
 BLOCK_SIZE = 20
 

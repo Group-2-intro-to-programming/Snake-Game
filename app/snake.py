@@ -57,14 +57,14 @@ class Snake:
                 return True
         return False
     
-    def check_wall_collision(self, window_width, window_height):
-        """Check if snake hits the wall"""
+    def check_wall_collision(self, window_width, window_height, play_area_top=60, play_area_bottom=540):
+        """Check if snake hits the wall or UI boundaries"""
         head_x, head_y = self.head
         if (head_x < 0 or head_x >= window_width or 
-            head_y < 0 or head_y >= window_height):
+            head_y < play_area_top or head_y >= play_area_bottom):
             return True
         return False
     
-    def collided(self, window_width=800, window_height=600):
+    def collided(self, window_width=800, window_height=600, play_area_top=60, play_area_bottom=540):
         """Check all collision types"""
-        return self.check_self_collision() or self.check_wall_collision(window_width, window_height)
+        return self.check_self_collision() or self.check_wall_collision(window_width, window_height, play_area_top, play_area_bottom)
