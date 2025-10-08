@@ -95,4 +95,4 @@ python3 app/main.py
 4. **Objective:**
    - Eat red apples to grow and gain points
    - Avoid hitting walls, obstacles, and yourself
-   - Survive as long as possible and beat your
+   - Survive as long as possible and beat your highscore
