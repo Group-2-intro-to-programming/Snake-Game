@@ -31,7 +31,8 @@ def create_game_objects(screen, player_name):
     """Create all game objects for a new game"""
     snake = Snake(start_pos=START_POSITION, block_size=BLOCK_SIZE)
     food = Food(window_width=WINDOW_WIDTH, window_height=WINDOW_HEIGHT, 
-                block_size=BLOCK_SIZE)
+                block_size=BLOCK_SIZE, play_area_top=PLAY_AREA_TOP, 
+                play_area_bottom=PLAY_AREA_BOTTOM)
     obstacles = ObstacleManager(window_width=WINDOW_WIDTH, 
                                window_height=WINDOW_HEIGHT, 
                                block_size=BLOCK_SIZE)
@@ -90,9 +91,11 @@ def render_game(screen, graphics, snake, food, obstacles, score_manager,
     graphics.draw_header(
         score_manager.player_name, score_manager.score, score_manager.high_score
     )
+    level = calculate_level(score_manager.score)
     graphics.draw_footer(
-        current_speed, obstacles.obstacle_count(), 
-    )
+        level, obstacles.obstacle_count()
+        )
+
     
     pygame.display.flip()
 

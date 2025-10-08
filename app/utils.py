@@ -80,3 +80,7 @@ def should_spawn_obstacle(score, current_obstacles):
     expected_obstacles = min(expected_obstacles, MAX_OBSTACLES)
     
     return current_obstacles < expected_obstacles
+
+def calculate_level(score):
+    """Calculate current level based on score"""
+    return 1 + score // 50  # Increase level every 50 points

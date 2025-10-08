@@ -5,10 +5,14 @@ import random
 import pygame
 
 class Food:
-    def __init__(self, window_width=800, window_height=600, block_size=20):
+    def __init__(self, window_width=800, window_height=600, block_size=20, 
+                 play_area_top=60, play_area_bottom=None ):
         self.window_width = window_width
         self.window_height = window_height
         self.block_size = block_size
+
+        self.play_area_top = play_area_top
+        self.play_area_bottom = play_area_bottom or window_height - 60  # Footer height
         self.position = [0, 0]
         self.spawn()
     
@@ -16,7 +20,7 @@ class Food:
         """Generate random position for food, avoiding snake body"""
         while True:
             x = random.randrange(0, self.window_width - self.block_size, self.block_size)
-            y = random.randrange(0, self.window_height - self.block_size, self.block_size)
+            y = random.randrange(self.play_area_top, self.play_area_bottom - self.block_size, self.block_size)
             self.position = [x, y]
             
             # Check if food spawned on snake body
